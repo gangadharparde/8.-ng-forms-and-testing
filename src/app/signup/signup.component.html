@@ -1,0 +1,113 @@
+<div class="container">
+  <div class="d-flex justify-content-between bd-highlight mb-3 ">
+    <div class="p-2 bd-highlight"></div>
+    <div class="p-2 bd-highlight">
+      <div class="content">
+        <span class="h5">Registration</span>
+        <hr />
+        <!-- 
+            NgForm:
+            It is the directive which helps to create the control groups inside form directive. 
+            It is attached to the <form> element in HTML and supplements from tag with some additional features.
+            -->
+        <form #studentForm="ngForm" (ngSubmit)="RegisterStudent(studentForm)" (change)="AfterChangedForm(studentForm)">
+          <div class="form-group">
+            <label for="firstName">First Name</label>
+            <input
+              id="firstName"
+              type="text"
+              class="form-control"
+              name="firstName"
+              ngModel
+              required
+              #firstName="ngModel"
+            />
+            <div class="alert alert-danger" *ngIf="firstName.touched && !firstName.valid">
+              First name is required
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="lastName">Last Name</label>
+            <input
+              id="lastName"
+              type="text"
+              class="form-control"
+              name="lastName"
+              ngModel
+            />
+          </div>
+          <div class="form-group">
+            <label for="email">Email</label>
+            <input
+              id="email"
+              type="email"
+              class="form-control"
+              name="email"
+              ngModel
+            />
+          </div>
+          <div class="form-group">
+            <label for="password">Password</label>
+            <input
+              required
+              minlength="8"
+              pattern="(?=.*\d)(?=.*[a-z])(?=.*?[0-9])(?=.*?[~`!@#$%^&amp;*()_=+\[\]{};:&apos;.,&quot;\\|\/?&gt;&lt;-]).{4,}"
+              #pass="ngModel"
+              id="password"
+              type="text"
+              class="form-control"
+              name="password"
+              ngModel
+            />
+            <div class="alert alert-danger" *ngIf="pass.touched && !pass.valid">
+              <div *ngIf="pass.errors?.['required']">Password is required</div>
+              <div *ngIf="pass.errors?.['minlength']">Password required minimum length: {{pass.errors?.['minlength'].requiredLength}}</div>
+              <div *ngIf="pass.errors?.['pattern']">Password alphaneumeric with at least one special character (bracket included)</div>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Gender</label>
+            <div class="form-control">
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="male" [(ngModel)]="gender" />
+                Male
+              </label><br/>
+              <label class="radio-inline">
+                <input type="radio" name="gender" value="female" [(ngModel)]="gender"  #radio="ngModel" (change)="AfterChangedRadio(radio)"/>
+                Female
+              </label>
+            </div>
+          </div>
+          <div class="form-group">
+            <label for="branch">Branch</label>
+            <select id="branch" name="branch" ngModel class="form-control">
+              <option value="CSE">Comp Science Engineering</option>
+              <option value="ETC">ETC</option>
+              <option value="Mechanical">Mechanical</option>
+              <option value="Electrical">Electrical</option>
+            </select>
+          </div>
+          <div class="form-group">
+            <label for="state">States</label>
+            <select id="state" name="state" class="form-control" ngModel>
+              <option *ngFor="let state of states" [value]="state.id">
+                {{state.name}}
+              </option>
+            </select>
+          </div>
+          <div class="form-group">
+            <div class="form-control">
+              <label class="checkbox-inline">
+                <input type="checkbox" name="isAccept" ngModel>&nbsp;<a href="#">Accept Terms & Conditions</a>
+              </label>
+            </div>
+          </div>
+          <hr/>
+          <button class="btn btn-primary" type="submit">Submit</button>
+          <button type="button" type="reset" class="btn btn-link">Reset</button>
+        </form>
+      </div>
+    </div>
+    <div class="p-2 bd-highlight"></div>
+  </div>
+</div>
